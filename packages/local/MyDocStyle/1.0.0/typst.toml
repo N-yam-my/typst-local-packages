@@ -1,0 +1,8 @@
+[package]
+name = "MyDocStyle"
+version = "1.0.0"
+entrypoint = "template.typ"
+author = ["N.yam.my"]
+license = "MIT"
+description = "My own document style template."
+exculde = ["*.pdf"]

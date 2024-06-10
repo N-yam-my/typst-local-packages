@@ -1,0 +1,8 @@
+[package]
+name = "MyPackages"
+version = "1.0.0"
+entrypoint = "packages.typ"
+authors = ["N.yam.my"]
+license = "MIT"
+description = "My own collection of packages and their settings."
+exclude = ["*.pdf"]
