@@ -1,5 +1,5 @@
 [package]
-name = "MyPackages"
+name = "myPackages"
 version = "1.0.0"
 entrypoint = "packages.typ"
 authors = ["N.yam.my"]

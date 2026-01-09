@@ -1,8 +1,8 @@
 [package]
-name = "MyUtils"
+name = "myUtils"
 version = "1.0.0"
 entrypoint = "util.typ"
 author = ["N.yam.my"]
 license = "MIT"
-description = "My collecion of useful functions."
+description = "Collecion of useful functions."
 exculde = ["*.pdf"]
