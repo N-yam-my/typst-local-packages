@@ -1,19 +1,23 @@
-#import "@preview/diverential:0.2.0": *
-#import "@preview/drafting:0.2.0" : *
-#import "@preview/fletcher:0.4.3" as fletcher: diagram, node, edge
+// Local
+#import "@local/bxbango:0.2.0" : *
+
+// Published
+#import "@preview/diverential:0.2.0" : *
+#import "@preview/drafting:0.2.2" : *
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
 #import "@preview/i-figured:0.2.4"
-#import "@preview/rubby:0.10.1": get-ruby
+#import "@preview/rubby:0.10.2" : get-ruby
 #let ruby = get-ruby(
   size: 0.5em,         // Ruby font size
-  dy: 0pt,             // Vertical offset of the ruby
+  dy: -0.25em,             // Vertical offset of the ruby
   pos: top,            // Ruby position (top or bottom)
   alignment: "center", // Ruby alignment ("center", "start", "between", "around")
   delimiter: "|",      // The delimiter between words
   auto-spacing: true,  // Automatically add necessary space around words
 )
-#import "@preview/metro:0.2.0" : *
-#import "@preview/whalogen:0.1.0": ce
-#import "@preview/ctheorems:1.1.2": *
+#import "@preview/unify:0.7.1" : num, qty, numrange, qtyrange
+#import "@preview/whalogen:0.3.0" : ce
+#import "@preview/ctheorems:1.1.3" : *
 
 #let theoremName(
   modify : false,
@@ -26,12 +30,15 @@
     "example" : "例",
     "proof" : "証明",
     "caution" : "注意",
-    "exercise" : "問題",
+    "exercise" : "設問",
     "hypothesis" : "仮説",
     "rule" : "規則",
     "hanrei" : "判例",
+    "saibanrei" : "裁判例",
     "case" : "事例",
     "point" : "ポイント",
+    "argue" : "論証",
+    "theory" : "学説",
   ),
 ) = {
   let defaultDict = (
@@ -46,9 +53,12 @@
     "exercise" : "Exercise",
     "hypothesis" : "Hypothesis",
     "rule" : "Rule",
-    "hanrei" : "Judicial Decision",
+    "hanrei" : "Judicial Precedent",
+    "saibanrei" : "Judical Decision",
     "case" : "Case",
     "point" : "Point",
+    "argue" : "Argument",
+    "theory" : "Theory",
   )
   return if not modify { defaultDict } else { dict }
 }
@@ -60,7 +70,7 @@
   nameFormat : x => [(#x)],
   titleFormat : strong,
   color : luma(86%),
-  inset : (x : 1.2em, y : 0.65em),
+  inset : (x : 1em, y : 0.5em),
   radius : 0pt,
   stroke : ("left" : ("thickness" : 0.5em, "paint" : luma(50%)),),
   ..args,
@@ -85,19 +95,116 @@
 ).with(numbering : none)
 #let hanrei = myTheoremBase(
   identifier : "hanrei",
-  titlefmt : x => box(
+  titlefmt : x => h(-1em) + box(baseline : 0.12em,
     fill : olive.mix(white),
-    inset : (x : 0.5em),
-    outset : (y : 0.3em),
+    inset : (right : 0.5em),
+    outset : (left : 0.5em, y : 0.2em),
     radius : 6pt,
     {
       strong(text(font : "Moralerspace Krypton HWNF", x))
     }
   ),
   name : thmDict.hanrei,
-  namefmt : x => underline(
+  namefmt : x => h(0.5em) + underline(
     stroke : (
       paint : color.mix((white, 66%), (olive, 34%)),
+      thickness : 0.4em,
+      cap : "round",
+    ),
+    extent : 0em,
+    background : true,
+    evade : false,
+    {
+      set text(font : ("New Computer Modern", "Kaisei Tokumin"))
+      show strong: set text(font : "Kaisei Tokumin")
+      x
+    }
+  ),
+  color : color.mix((olive, 15%), (white, 85%)),
+  stroke : ("left" : ("thickness" : 0.5em, "paint" : olive.mix(white))),
+  radius : 3pt,
+  separator : { parbreak() }
+)
+#let saibanrei = myTheoremBase(
+  identifier : "hanrei",
+  titlefmt : x => h(-1em) + box(baseline : 0.12em,
+    fill : color.mix((white, 66%), (olive, 34%)),
+    inset : (right : 0.5em),
+    outset : (left : 0.5em, y : 0.2em),
+    radius : 6pt,
+    {
+      strong(text(font : "Moralerspace Krypton HWNF", x))
+    }
+  ),
+  name : thmDict.saibanrei,
+  namefmt : x => h(0.5em) + underline(
+    stroke : (
+      paint : color.mix((white, 66%), (olive, 34%)),
+      thickness : 0.4em,
+      cap : "round",
+    ),
+    extent : 0em,
+    background : true,
+    evade : false,
+    {
+      set text(font : ("New Computer Modern", "Kaisei Tokumin"))
+      show strong: set text(font : "Kaisei Tokumin")
+      x
+    }
+  ),
+  color : color.mix((olive, 15%), (white, 85%)),
+  stroke : ("left" : ("thickness" : 0.5em, "paint" : color.mix((white, 66%), (olive, 34%)))),
+  radius : 3pt,
+  separator : { parbreak() }
+)
+#let theory = myTheoremBase(
+  identifier : "hanrei",
+  titlefmt : x => h(-1em) + box(baseline : 0.12em,
+    fill : orange.mix(white),
+    inset : (right : 0.5em),
+    outset : (left : 0.5em, y : 0.2em),
+    radius : 6pt,
+    {
+      strong(text(font : "Moralerspace Krypton HWNF", x))
+    }
+  ),
+  name : thmDict.theory,
+  namefmt : x => h(0.5em) + underline(
+    stroke : (
+      paint : color.mix((white, 66%), (orange, 34%)),
+      thickness : 0.4em,
+      cap : "round",
+    ),
+    extent : 0em,
+    background : true,
+    evade : false,
+    {
+      set text(font : ("New Computer Modern", "Kaisei Tokumin"))
+      show strong: set text(font : "Kaisei Tokumin")
+      x
+    }
+  ),
+  color : color.mix((orange, 15%), (white, 85%)),
+  stroke : ("left" : ("thickness" : 0.5em, "paint" : orange.mix(white))),
+  radius : 3pt,
+  separator : { parbreak() }
+)
+#let argue = myTheoremBase(
+  identifier : "hanrei",
+  titlefmt : x => h(-1em) + box(baseline : 0.12em,
+    fill : luma(66%),
+    inset : (right : 0.5em),
+    outset : (left : 0.5em, y : 0.2em),
+    radius : 6pt,
+    {
+      strong(text(font : "Moralerspace Krypton HWNF", x))
+    }
+  ),
+  name : thmDict.argue,
+  namefmt : x => h(0.5em) + underline(
+    evade : false,
+    stroke : (
+      paint : luma(66%),
       thickness : 0.4em,
       cap : "round",
     ),
@@ -109,10 +216,11 @@
       x
     }
   ),
-  color : color.mix((olive, 15%), (white, 85%)),
-  stroke : ("left" : ("thickness" : 0.5em, "paint" : olive.mix(white))),
+  color : luma(90%),
+  stroke : ("left" : ("thickness" : 0.5em, "paint" : luma(66%))),
   radius : 3pt,
-  separator : { linebreak() }
+  separator : { parbreak() },
+  breakable : false
 )
 #let theorem = myTheoremBase(name : thmDict.theorem, color : luma(90%))
 #let lemma = myTheoremBase(name : thmDict.lemma, color : luma(92%))
@@ -146,8 +254,8 @@
   name : "Point",
   titlefmt : x => box(
     fill : orange,
-    inset : (x : 0.5em),
-    outset : (y : 0.3em),
+    inset : (right : 0.5em),
+    outset : (left : 0.5em, y : 0.2em),
     radius : 6pt,
     {
       strong(text(font : "Moralerspace Krypton HWNF", x))
@@ -212,10 +320,16 @@
     ),
   body,
 ) = {
+  set-margin-note-defaults(
+    stroke : purple.mix(white)
+  )
   // Set up the Q.E.D. symbol for proof env.
   show : thmrules.with(qed-symbol: qed-symbol)
   // Show equation numbering only if has("label") or not labeled with <->.
-  show math.equation : it => {i-figured.show-equation(it, ..showEqArgs)}
+  show heading.where(level : 1) : i-figured.reset-counters
+  show math.equation : it => {
+    i-figured.show-equation(it, ..showEqArgs)
+  }
   // Set up supplement for reference.
   set math.equation(supplement : [式])
   body
