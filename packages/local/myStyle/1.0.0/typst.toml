@@ -1,5 +1,5 @@
 [package]
-name = "MyStyle"
+name = "myStyle"
 version = "1.0.0"
 entrypoint = "template.typ"
 author = ["N.yam.my"]
