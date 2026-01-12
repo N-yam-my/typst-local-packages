@@ -1,0 +1,3 @@
+[submodule "packages/local/bxbango/0.2.0"]
+	path = packages/local/bxbango/0.2.0
+	url = https://gist.github.com/15fbdc6a694eaf6b8d0ca6cf9052f8b1.git
