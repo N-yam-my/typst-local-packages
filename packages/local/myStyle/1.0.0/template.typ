@@ -161,11 +161,11 @@
         box(it)
       }
     )
-  ) // (
+  )
   show footnote.entry: it => {
-    let loc = it.note.location() //(
+    let loc = it.note.location()
     set par(first-line-indent: 1em)
-    numbering(// (
+    numbering(
       "1)",
       ..counter(footnote).at(loc),
     )
@@ -176,7 +176,7 @@
   show math.equation : set text(font :args.at("font").at("math"))
 
   // link
-  show link: set text(fill: blue, font: "Moralerspace Argon HWNF")
+  show link: set text(fill: blue, font: "Moralerspace Argon HW")
   show link: underline
 
   // image (for .svg images)
