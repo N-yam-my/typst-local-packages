@@ -178,7 +178,7 @@ let _ = counter("kian")
   date,
   publish
 ) = {
-  let p = (prefix.first(), prefix.last())
+  let p = if prefix == "" { ("",) } else { (prefix.first(), prefix.last()) }
   let m = if is-big { "大" } else if number > 0 {
     numbering("(一)", number)
   } else { none }
