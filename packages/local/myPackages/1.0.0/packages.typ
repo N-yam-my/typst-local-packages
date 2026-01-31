@@ -96,7 +96,7 @@
 )
 #let definition = myTheoremBase()
 #let axiom = myTheoremBase(name: thmDict.axiom, color: luma(88%))
-#let rule = myTheoremBase(
+#let Rule = myTheoremBase(
   identifier: "rule",
   name: thmDict.rule,
   color: luma(88%),
