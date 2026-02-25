@@ -8,9 +8,9 @@
   }
 }
 // Set up BOX function for in-paragraph blocks such as enum, eq.
-#let BOX(body) = {
+#let BOX(..box-args) = {
   linebreak()
-  box(width: 100%, body)
+  box(width: 100%, ..box-args)
 }
 
 #let theme(spacing : 1em, no-indent : false, body) = {
