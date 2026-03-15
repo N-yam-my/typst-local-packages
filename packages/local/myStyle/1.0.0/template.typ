@@ -96,7 +96,7 @@
     pg-init.at("width"),
     pg-init.at("height"),
     t-init.at("size"),
-    // relative to font
+    // relative to font size
     pr-init.at("leading"),
   )
   // Compute default Kihon-hanmen; about 0.75 * <width, height>
@@ -183,16 +183,15 @@
     set par(first-line-indent: 1em)
     pad(
       left: w,
-      h(-w) + n + box(width: 0.5em, ")") + h(0.5em, weak: true) + it.note.body
-
+      h(-w) + n + box(width: 0.5em, ")") + h(0.5em, weak: true) + it.note.body,
     )
   }
   // settings appled in math
   show math.equation: set text(font: args.at("font").at("math"))
 
   // link
-  show link: set text(fill: blue, font: "Moralerspace Argon HW")
-  show link: underline
+  // show link: set text(fill: blue, font: "Moralerspace Argon HW")
+  // show link: underline
 
   // image (for .svg images)
   show image: set text(font: "BIZ UDPMincho")
@@ -252,14 +251,21 @@
   // show heading: set block(spacing : 0.7 * s)
   body
 }
+#let Setup-title(title, author, title-pagebreak) = {
+  if title == none { return none }
+  // Display title and author
+  let c = if author != "" { title + author } else { title }
+  let R = if title-pagebreak == true { v(1fr) + c + v(1fr) } else { c }
+  return R
+}
 // Initializer for normal documents
 #let init(
   title: none,
   titlefmt: x => block[#text(size: 22pt)[#x]],
-  font-title: none,
   author: "",
-  title-pagebreak: false,
   authorfmt: x => block[#text(size: 16pt)[#x]],
+  title-pagebreak: false,
+  setup-func: Setup-title,
   page-args: arguments(),
   kihon-hanmen: arguments(),
   font-args: arguments(),
@@ -294,29 +300,7 @@
   )
   before-title
   // Set up title
-  if title != none {
-    // Display title and author
-    let title-content = {
-      let font = if font-title != none { font-title } else {
-        args.at("text").at("font")
-      }
-      titlefmt(title)
-      if author == "" { none } else {
-        authorfmt(author)
-      }
-    }
-    {
-      set align(center)
-      if title-pagebreak {
-        v(1fr)
-        title-content
-        v(1fr)
-        pagebreak()
-      } else {
-        title-content
-      }
-    }
-  }
+  setup-func(titlefmt(title), authorfmt(author), title-pagebreak)
   body
 }
 

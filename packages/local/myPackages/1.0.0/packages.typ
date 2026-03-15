@@ -15,7 +15,7 @@
 )
 
 // // Math
-#import "@preview/curryst:0.6.0": rule, prooftree, rule-set
+#import "@preview/curryst:0.6.0": prooftree, rule, rule-set
 #import "@preview/diverential:0.2.0": *
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
 
@@ -76,7 +76,9 @@
   name: thmDict.definition,
   level: 1,
   nameFormat: x => [(#x)],
-  titleFormat: strong,
+  titleFormat: x => context {
+    place(strong(x)) + h(measure(x).width -0.75em, weak: true)
+  },
   color: luma(86%),
   inset: (x: 1em, y: 0.5em),
   radius: 0pt,
@@ -321,17 +323,25 @@
 #let example = thmplain(
   "example",
   thmDict.example,
+  titlefmt: x => context {
+    place(strong(x)) + h(measure(x).width -1em, weak: true)
+  },
   inset: (x: 1.2em, bottom: 0.6em),
 ).with(numbering: none)
 #let caution = thmplain(
   "caution",
   thmDict.caution,
-  titlefmt: strong,
+  titlefmt: x => context {
+    place(strong(x)) + h(measure(x).width -1em, weak: true)
+  },
   inset: (x: 1.2em, bottom: 0.6em),
 ).with(numbering: none)
 #let proof = thmproof(
   "proof",
   thmDict.proof,
+  titlefmt: x => context {
+    place(strong(x)) + h(measure(x).width -1em, weak: true)
+  },
   namefmt: if thmDict.proof == "Proof" { name => emph([#name]) } else { name => [#name] },
   inset: (x: 1.2em, bottom: 0.6em),
 )

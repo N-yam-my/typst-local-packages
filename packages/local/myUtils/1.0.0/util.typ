@@ -122,12 +122,13 @@ let _ = counter("kian")
   },
   heading-width : 3em,
   offset : 0,
+  heading-fmt: underline.with(stroke: 0.05em),
   body
 ) = {
   let t = state("size-and-font")
   let c = counter("kian")
   context {
-    t.update((size: text.size, font : "BIZ UDPMincho"))
+    t.update((size: text.size, font: text.font))
   }
   c.update(())
   {
@@ -151,8 +152,7 @@ let _ = counter("kian")
         [
           #c.step(level : it.level)
           #set align(right)
-          #context underline(
-            stroke: 0.05em,
+          #context heading-fmt(
             numbering(
               numbering,
               ..c.get()
