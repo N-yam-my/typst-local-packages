@@ -123,6 +123,7 @@ let _ = counter("kian")
   heading-width : 3em,
   offset : 0,
   heading-fmt: underline.with(stroke: 0.05em),
+  body-fmt: x => x,
   body
 ) = {
   let t = state("size-and-font")
@@ -160,7 +161,7 @@ let _ = counter("kian")
           #h(0.5em)
       ])
       h(1em)
-      [#it.body]
+      body-fmt[#it.body]
       if it.level == 1 or it.body != [] {
         parbreak()
       } else { h(weak : true, 1em) }

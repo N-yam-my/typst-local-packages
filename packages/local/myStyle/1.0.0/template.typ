@@ -82,7 +82,7 @@
   // default values for  <set block(...)>
   let bn = block-args.named()
   let b-init = (
-    spacing: assure-default(bn, "spacing", 0.7em),
+    spacing: assure-default(bn, "spacing", auto),
   )
   // default values for  <set page(...)>
   let pgn = page-args.named()
@@ -285,11 +285,6 @@
     par-args: par-args,
     block-args: block-args,
   )
-  // Apply settings about page
-  set page(
-    ..args.at("page"),
-    ..page-args,
-  )
   // Apply other settings
   show: init-subfile.with(
     font-args: font-args,
@@ -297,6 +292,11 @@
     par-args: par-args,
     block-args: block-args,
     enable-chapter: enable-chapter,
+  )
+  // Apply settings about page
+  set page(
+    ..args.at("page"),
+    ..page-args,
   )
   before-title
   // Set up title
