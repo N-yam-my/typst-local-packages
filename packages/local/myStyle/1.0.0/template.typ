@@ -255,7 +255,7 @@
   if title == none { return none }
   // Display title and author
   let c = if author != "" { title + author } else { title }
-  let R = if title-pagebreak == true { v(1fr) + c + v(1fr) } else { c }
+  let R = if title-pagebreak == true { v(1fr) + c + v(1fr) + pagebreak()} else { c }
   return R
 }
 // Initializer for normal documents
